@@ -5,7 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/dist/output.css" rel="stylesheet">
+  @vite('resources/css/app.css')
+ 
   <title> نظرسنجی آکادمی امروز </title>
 </head>
 
@@ -27,7 +28,7 @@
 
       <h1 class="text-center font-bold text-xl">نظرسنجی آکادمی امروز</h1>
       <!--qustion box-->
-      <form class="bg-white shadow-lg rounded-2xl p-8 space-y-12" action="/save_nps" method="POST">
+      <form class="bg-white shadow-lg rounded-2xl p-8 space-y-12" action="/save_rate" method="POST">
         @csrf
         <!--text of qestion-->
         <div class="flex space-x-4 space-x-reverse justify-center text-lg text-neutral-700">
@@ -43,19 +44,24 @@
         </div>
         <!--radio boxes of qestion-->
         <div class="max-w-lg mx-auto space-y-2">
+          @error('rate')
+            <div class="text-red-500 text-sm">
+              {{ $message }}
+            </div>
+          @enderror
           <!--guid of radio boxes-->
           <div>
-            <input type="option" class="hidden" name="rate" value="0" id="option_0">
-            <input type="option" class="hidden" name="rate" value="1" id="option_1">
-            <input type="option" class="hidden" name="rate" value="2" id="option_2">
-            <input type="option" class="hidden" name="rate" value="3" id="option_3">
-            <input type="option" class="hidden" name="rate" value="4" id="option_4">
-            <input type="option" class="hidden" name="rate" value="5" id="option_5">
-            <input type="option" class="hidden" name="rate" value="6" id="option_6">
-            <input type="option" class="hidden" name="rate" value="7" id="option_7">
-            <input type="option" class="hidden" name="rate" value="8" id="option_8">
-            <input type="option" class="hidden" name="rate" value="9" id="option_9">
-            <input type="option" class="hidden" name="rate" value="10" id="option_10">
+            <input type="radio" class="hidden" name="rate" value="0" id="option_0">
+            <input type="radio" class="hidden" name="rate" value="1" id="option_1">
+            <input type="radio" class="hidden" name="rate" value="2" id="option_2">
+            <input type="radio" class="hidden" name="rate" value="3" id="option_3">
+            <input type="radio" class="hidden" name="rate" value="4" id="option_4">
+            <input type="radio" class="hidden" name="rate" value="5" id="option_5">
+            <input type="radio" class="hidden" name="rate" value="6" id="option_6">
+            <input type="radio" class="hidden" name="rate" value="7" id="option_7">
+            <input type="radio" class="hidden" name="rate" value="8" id="option_8">
+            <input type="radio" class="hidden" name="rate" value="9" id="option_9">
+            <input type="radio" class="hidden" name="rate" value="10" id="option_10">
           </div>
           <div class="flex space-x-2 justify-between flex-row-reverse select-none ">
             <label
@@ -113,6 +119,7 @@
           <!--button for submit-->
           <button class="rounded-md  w-32 h-10 justify-center"
             type="submit"
+            :disabled="selectedRate == null"
             :class="selectedRate == null ? 'bg-neutral-200 text-neutral-400' : 'bg-orange-400 text-neutral-600'">
             ثبت نظر
           </button>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('nps');
-});
-
-Route::post('/save_nps',function ()
-{
-    return request('rate','mojod nist');
-});
+Route::view('/', 'nps');
+Route::post('/save_rate', [RateController::class, 'save_rate']);
+Route::view('/congrats', 'congrats')->name('congrats');
